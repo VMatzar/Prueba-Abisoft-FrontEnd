@@ -1,0 +1,71 @@
+<a class="return" mat-raised-button routerLink="/enrollments">< Regresar</a>
+<form [formGroup]="form">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Inscripciones
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field>
+                <input placeholder="Nombre" formControlName="nombre" matInput type="text">
+            </mat-form-field>
+            <div *ngIf="nombreField!.errors && nombreField!.dirty" class="message_error">
+                <p *ngIf="nombreField!.hasError('palabrasInvalidas')">
+                    El nombre debe contener solo letras, y no debe tener más de dos palabras!
+                </p>
+                <p *ngIf="nombreField!.hasError('required')">
+                    Este campo es requerido!
+                </p>
+            </div>
+            <mat-form-field>
+                <input placeholder="Edad" formControlName="edad" matInput type="number">
+            </mat-form-field>
+            <div *ngIf="edadField!.errors && edadField!.dirty" class="message_error">
+                <p *ngIf="edadField!.hasError('edadInvalida')">
+                    Debe ser mayor de 18 años!
+                </p>
+                <p *ngIf="edadField!.hasError('required')">
+                    Este campo es requerido!
+                </p>
+            </div>
+            <div class="fecha">
+                <label for="date-input">Fecha de Nacimiento</label>
+                <input id="date-input" name="date" type="date" formControlName="fecha_nac" />
+            </div>
+            <div *ngIf="fechaNacField!.errors && fechaNacField!.dirty" class="message_error">
+                <p *ngIf="fechaNacField!.hasError('edadNoCoincide')">
+                    La edad no coincide!
+                </p>
+                <p *ngIf="fechaNacField!.hasError('required')">
+                    Este campo es requerido!
+                </p>
+            </div>
+            <div class="fecha">
+                <label for="date-input">Fecha de Inscripcion</label>
+                <input type="date" formControlName="fecha_inscripcion" />
+            </div>
+            <div *ngIf="fechaInscripcion!.errors && fechaInscripcion!.dirty" class="message_error">
+                <p *ngIf="fechaInscripcion!.hasError('fechaInscripcionMayorFechaNacimiento')">
+                    La fecha de inscripcion debe ser mayor a la fecha de nacimiento!
+                </p>
+            </div>
+            <mat-form-field>
+                <input placeholder="Costo" formControlName="costo" matInput type="number">
+            </mat-form-field>
+            <div *ngIf="costoField!.errors && costoField!.dirty" class="message_error">
+                <p *ngIf="costoField!.hasError('invalidCost')">
+                    El costo no es proporcional a la fecha de inscripcion!
+                </p>
+                <p *ngIf="costoField!.hasError('required')">
+                    Este campo es requerido!
+                </p>
+            </div>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="button" (click)="saveInscripcion()">
+                    Guardar
+                </button>
+            </mat-card-actions>
+        </mat-card-content>
+    </mat-card>
+</form>
