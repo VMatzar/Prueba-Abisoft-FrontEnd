@@ -1,4 +1,4 @@
-<a class="agregar" mat-raised-button routerLink="create">Agregar inscripción</a>
+<!-- <a class="agregar" mat-raised-button routerLink="create">Agregar inscripción</a> -->
 <mat-form-field>
     <mat-label>Filtre por nombre, edad o costo...</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Nombre, edad o costo" #input>
@@ -28,7 +28,8 @@
 
     <ng-container matColumnDef="fecha_inscripcion">
         <th mat-header-cell *matHeaderCellDef>Fecha Inscripcion</th>
-        <td mat-cell *matCellDef="let iterador_de_inscripciones"> {{iterador_de_inscripciones.fecha_inscripcion|date}} </td>
+        <td mat-cell *matCellDef="let iterador_de_inscripciones"> {{iterador_de_inscripciones.fecha_inscripcion|date}}
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="costo">
@@ -40,10 +41,10 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let iterador_de_inscripciones">
-            <a mat-raised-button [routerLink]="['edit',iterador_de_inscripciones.inscripcion_id]" color="warn">
-                EDITAR </a>
-            <button mat-stroked-button color="primary"
-                (click)="deleteInscripcion(iterador_de_inscripciones.inscripcion_id)">ELIMINAR</button>
+            <a matTooltip="Editar" mat-mini-fab color="accent" [routerLink]="['edit',iterador_de_inscripciones.inscripcion_id]"
+                color="warn"><mat-icon>edit</mat-icon></a>
+            <button matTooltip="Eliminar" mat-mini-fab color="primary"
+                (click)="deleteInscripcion(iterador_de_inscripciones.inscripcion_id)"><mat-icon>delete</mat-icon></button>
         </td>
     </ng-container>
 

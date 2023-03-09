@@ -15,10 +15,6 @@ const routes: Routes = [
         redirectTo: '/enrollments',
         pathMatch: 'full',
       },
-    //   {
-    //     path:'register',
-    //     component:RegisterComponent
-    //   },
       {
         path:'enrollments',
         component:EnrollmentListComponent

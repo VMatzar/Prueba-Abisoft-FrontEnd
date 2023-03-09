@@ -32,9 +32,10 @@
                         </p>
                     </div>
                     <div class="fecha">
-                        <label for="date-input">Fecha de Nacimiento</label>
+                        <label for="date-input"> Fecha de Nacimiento: </label>
                         <input id="date-input" name="date" type="date" formControlName="fecha_nac" />
                     </div>
+
                     <div *ngIf="fechaNacField!.errors && fechaNacField!.dirty" class="message_error">
                         <p *ngIf="fechaNacField!.hasError('edadNoCoincide')">
                             La edad no coincide!
@@ -51,8 +52,11 @@
                         <p *ngIf="fechaInscripcion!.hasError('fechaInscripcionMayorFechaNacimiento')">
                             La fecha de inscripcion debe ser mayor a la fecha de nacimiento!
                         </p>
+                        <p *ngIf="fechaNacField!.hasError('required')">
+                            Este campo es requerido!
+                        </p>
                     </div>
-                    <mat-form-field>
+                    <mat-form-field class="field-cost">
                         <input placeholder="Costo" formControlName="costo" matInput type="number">
                     </mat-form-field>
                     <div *ngIf="costoField!.errors && costoField!.dirty" class="message_error">

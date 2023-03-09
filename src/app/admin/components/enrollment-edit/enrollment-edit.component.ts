@@ -23,12 +23,10 @@ export class EnrollmentEditComponent {
     this.buildForm();
   }
   saveInscripcion() {
-      const enrollment = this.form.value;
-      this.serEnrollmentService.updateEnrollment(this.id, enrollment)
-        .subscribe((enrollment) => {
-          this.router.navigate(['./enrollments']);
-        });
-    
+    const enrollment = this.form.value;
+    this.serEnrollmentService.updateEnrollment(this.id, enrollment).subscribe(() => {
+      this.router.navigate(['./enrollments']);
+    });
   }
   ngOnInit() {
     this.activeRoute.params.subscribe((params: Params) => {
@@ -36,15 +34,9 @@ export class EnrollmentEditComponent {
       this.serEnrollmentService.getEnrollment(this.id)
         .subscribe(enrollment => {
           let jsonElement = enrollment[0];
-          const fechadeNac = new Date(jsonElement.fecha_nac);
-          fechadeNac.setDate(fechadeNac.getDate() + 1);
-          this.form.get('fecha_nac')?.setValue(formatDate(fechadeNac, 'yyyy-MM-dd', 'en'));
-          const fechadeInscripcion = new Date(jsonElement.fecha_inscripcion);
-          fechadeInscripcion.setDate(fechadeInscripcion.getDate() + 1);
-          this.form.get('fecha_inscripcion')?.setValue(formatDate(fechadeInscripcion, 'yyyy-MM-dd', 'en'));
-          // this.form.patchValue(jsonElement);
+          this.form.get('fecha_nac')?.setValue(formatDate(jsonElement.fecha_nac, 'yyyy-MM-dd', 'en'));
+          this.form.get('fecha_inscripcion')?.setValue(formatDate(jsonElement.fecha_inscripcion, 'yyyy-MM-dd', 'en'));
           const { fecha_nac, fecha_inscripcion, ...newJsonElement } = jsonElement;
-
           // Patch the updated newJsonElement object to the form
           this.form.patchValue(newJsonElement);
         });
@@ -55,7 +47,7 @@ export class EnrollmentEditComponent {
       nombre: ['', [Validators.required, MyValidators.palabrasValidas]],
       edad: ['', [Validators.required, MyValidators.edadValida]],
       fecha_nac: ['', [Validators.required, MyValidators.fechaValida]],
-      fecha_inscripcion: ['', [Validators.required, MyValidators.fechaInscripcionMayorFechaNacimiento]],
+      fecha_inscripcion: ['', [Validators.required, MyValidators.fechaMayorValidator]],
       costo: ['', [Validators.required, MyValidators.costValidator]],
     });
   }
@@ -72,7 +64,7 @@ export class EnrollmentEditComponent {
   get costoField() {
     return this.form.get('costo');
   }
-  get fechaInscripcion(){
+  get fechaInscripcion() {
     return this.form.get('fecha_inscripcion');
 
   }

@@ -45,19 +45,16 @@ export class MyValidators {
 
         if (cost / (yearsSinceRegistration * 100) != 1) {
             return { invalidCost: true };
-        } else {
-            return null;
-        }
+        } 
+        return null;
     };
 
-    static fechaInscripcionMayorFechaNacimiento(control: AbstractControl): { [key: string]: any } | null {
-        const fechaNacimiento = control.get('fecha_nac')?.value;
-        const fechaInscripcion = control.get('fecha_inscripcion')?.value;
-      
+    static fechaMayorValidator(control: AbstractControl): { [key: string]: any } | null {
+        const fechaNacimiento = new Date(control.parent?.get('fecha_nac')?.value);
+        const fechaInscripcion = new Date(control.value);
         if (fechaInscripcion > fechaNacimiento) {
           return null; 
-        } else {
-          return { fechaInscripcionMayorFechaNacimiento: true }; 
-        }
+        }  
+        return { fechaInscripcionMayorFechaNacimiento: true }; 
       }
 }

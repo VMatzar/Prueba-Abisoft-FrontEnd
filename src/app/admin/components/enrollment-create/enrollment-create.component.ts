@@ -10,10 +10,11 @@ import { SerEnrollmentService } from 'src/app/core/services/ser-enrollment.servi
   styleUrls: ['./enrollment-create.component.scss']
 })
 export class EnrollmentCreateComponent implements OnInit {
-  mode: ProgressBarMode = 'determinate';
   form!: FormGroup;
-  value: number = 0;
-
+  fecha_nac: String = "";
+  updateForm() {
+    this.form.get('fecha_nac')?.setValue(this.fecha_nac);
+  }
   constructor(
     private formBuilder: FormBuilder,
     private serEnrollmentService: SerEnrollmentService,
@@ -32,16 +33,14 @@ export class EnrollmentCreateComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {}
 
   private buildForm() {
     this.form = this.formBuilder.group({
       nombre: ['', [Validators.required, MyValidators.palabrasValidas]],
       edad: ['', [Validators.required, MyValidators.edadValida]],
       fecha_nac: ['', [Validators.required, MyValidators.fechaValida]],
-      fecha_inscripcion: ['', [Validators.required, MyValidators.fechaInscripcionMayorFechaNacimiento]],
+      fecha_inscripcion: ['', [Validators.required, MyValidators.fechaMayorValidator]],
       costo: ['', [Validators.required, MyValidators.costValidator]],
     });
   }

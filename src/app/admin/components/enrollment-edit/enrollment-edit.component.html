@@ -50,7 +50,7 @@
                     La fecha de inscripcion debe ser mayor a la fecha de nacimiento!
                 </p>
             </div>
-            <mat-form-field>
+            <mat-form-field class="field-cost">
                 <input placeholder="Costo" formControlName="costo" matInput type="number">
             </mat-form-field>
             <div *ngIf="costoField!.errors && costoField!.dirty" class="message_error">
